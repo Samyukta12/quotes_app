@@ -1,5 +1,6 @@
 # quotes_app
-
+CodSoft Intern
+Quotes App with features like displaying inspiring quotes, user can save their favourite quotes and also can share to friends through differnt social media and messages.
 A new Flutter project.
 
 ## Getting Started
