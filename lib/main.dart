@@ -18,13 +18,6 @@ class MyAppState extends State<MyApp> {
 
 
   @override
-  void initState() {
-    context.read<Quotesprovider>().CallingApi();
-    super.initState();
-  }
-
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<Quotesprovider>(
       builder: (context,b,child) {
@@ -37,7 +30,7 @@ class MyAppState extends State<MyApp> {
             SalomonBottomBarItem(
               icon: Icon(Icons.home),
               title: Text("Home"),
-              selectedColor: Colors.purple,
+              selectedColor: Colors.pink,
             ),
 
             /// Likes
@@ -51,6 +44,17 @@ class MyAppState extends State<MyApp> {
           ],
         ),
           appBar: AppBar(
+            actions: [
+              GestureDetector(onTap:(){
+                context.read<Quotesprovider>().Refresh();
+
+
+              },child: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Icon(Icons.refresh),
+              )),
+
+            ],
               title: Center(
                   child: Text(
             'Quotes',

@@ -1,6 +1,4 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:another_flushbar/flushbar.dart';
 import 'package:like_button/like_button.dart';
 import 'package:provider/provider.dart';
 import 'package:quotes_app/QuotesProvider.dart';
@@ -13,10 +11,8 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> {
   @override
   void initState() {
-
-
-
-
+    context.read<Quotesprovider>().CallingApi();
+    context.read<Quotesprovider>().initialize();
     super.initState();
   }
 
@@ -36,7 +32,7 @@ class HomeState extends State<Home> {
                         Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
-                              color: Colors.pink[100],
+                              color: Colors.pink[200],
                             ),
                             height: MediaQuery.of(context).size.height * 0.4,
                             width: MediaQuery.of(context).size.width * 1,
@@ -53,7 +49,7 @@ class HomeState extends State<Home> {
                         Container(
                             decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
-                              color: Colors.pink[100],
+                              color: Colors.pink[200],
                             ),
                             height: MediaQuery.of(context).size.height * 0.08,
                             width: MediaQuery.of(context).size.width * 1,
@@ -70,7 +66,7 @@ class HomeState extends State<Home> {
                         Container(
                           height: MediaQuery.of(context).size.height * 0.08,
                           width: MediaQuery.of(context).size.width * 1,
-                          color: Colors.pink[50],
+                          color: Colors.pink[100],
                           child: Row(
                             children: [
                               Padding(
@@ -91,22 +87,42 @@ class HomeState extends State<Home> {
                                 padding: const EdgeInsets.all(15.0),
                                 child: ElevatedButton(
                                     onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return AlertDialog(actions: [
+                                              Text("Save to favourites?"),
+                                              ElevatedButton(
+                                                  onPressed: () {
+                                                    a.SaveFavourite(context,
+                                                        a.quoteslist[index].q!);
 
-                                      a.SaveFavourite(context,a.quoteslist[index].q!);
+                                                    context
+                                                        .read<Quotesprovider>()
+                                                        .Savedpref();
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: Text("Save")),
 
 
+                                            ]);
+                                          });
                                     },
-                                    child: Icon(Icons.bookmark)),
+                                    child: Icon(
+                                      Icons.bookmark,
+                                      color: Colors.black,
+                                    )),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(15.0),
                                 child: ElevatedButton(
-                                    onPressed: (){
-
+                                    onPressed: () {
                                       a.share(a.quoteslist[index].q!);
-
                                     },
-                                    child: Icon(Icons.share)),
+                                    child: Icon(
+                                      Icons.share,
+                                      color: Colors.black,
+                                    )),
                               ),
                             ],
                           ),

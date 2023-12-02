@@ -46,6 +46,9 @@ dev_dependencies:
   like_button: ^2.0.5
   flutter_share: ^2.0.0
   salomon_bottom_bar: ^3.3.2
+  shared_preferences: ^2.2.2
+
+
 #  document_picker: ^0.0.6
   http: ^1.1.2
   provider:

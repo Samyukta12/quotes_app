@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -10,20 +10,39 @@ import 'Model.dart';
 import 'package:http/http.dart' as http;
 import 'home.dart';
 
+class Quotesprovider extends ChangeNotifier {
+  List<String> shared = [];
+  List<String> getting = [];
+  late SharedPreferences sp;
 
-class Quotesprovider extends ChangeNotifier{
+  initialize() async {
+    sp = await SharedPreferences.getInstance();
+    List<String>? getting = await sp.getStringList("data");
 
+    if (getting == null) {
+    } else {
+      favquotes =
+          await getting.map((e) => Model.fromJson(json.decode(e))).toList();
 
+      notifyListeners();
+    }
+  }
 
-  List nav = [ Home(), Save() ];
+  Savedpref() {
+    shared = favquotes.map((save) {
+      return json.encode(save.toMap());
+    }).toList();
+
+    sp.setStringList("data", shared);
+
+  }
+
+  List nav = [Home(), Save()];
   int selectedItemPosition = 0;
 
-  List<String> favquotes=[];
+  List<Model> favquotes = [];
 
-
-
-
-  Future<void> share(String coimig ) async {
+  Future<void> share(String coimig) async {
     await FlutterShare.share(
         title: ' share',
         text: coimig,
@@ -31,12 +50,8 @@ class Quotesprovider extends ChangeNotifier{
         chooserTitle: 'Share your favourite quotes');
   }
 
-
-
   Map map = {};
   List<Model> quoteslist = [];
-
-
 
   CallingApi() async {
     await http
@@ -53,11 +68,10 @@ class Quotesprovider extends ChangeNotifier{
     });
   }
 
+  SaveFavourite(context, String comingfavourite) {
+    favquotes.add(Model(q: comingfavourite, a: "", c: "", h: ""));
 
 
-  SaveFavourite(context,String comingfavourite){
-
-    favquotes.add(comingfavourite);
 
     Flushbar(
       message: 'Saved to favourites.',
@@ -72,12 +86,12 @@ class Quotesprovider extends ChangeNotifier{
       leftBarIndicatorColor: Colors.blue[300],
     )..show(context);
 
-notifyListeners();
+    notifyListeners();
   }
+  void Refresh(){
+    quoteslist.clear();
+    CallingApi();
+    notifyListeners();
 
-
-
-
-
-
+  }
 }

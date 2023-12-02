@@ -14,4 +14,20 @@ class Model {
     c: json["c"],
     h: json["h"],
   );
+
+  Map<String, dynamic> toMap() {
+    return {
+      'q': q,
+
+      'a': a,
+
+      'c': c,
+      'h': h,
+
+    };
+  }
+
+
+
+
 }
