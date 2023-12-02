@@ -93,18 +93,16 @@ class HomeState extends State<Home> {
                                             return AlertDialog(actions: [
                                               Text("Save to favourites?"),
                                               ElevatedButton(
-                                                  onPressed: () {
-                                                    a.SaveFavourite(context,
-                                                        a.quoteslist[index].q!);
+                                                onPressed: () {
+                                                  a.SaveFavourite(context,
+                                                      a.quoteslist[index].q!);
 
-                                                    context
-                                                        .read<Quotesprovider>()
-                                                        .Savedpref();
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Text("Save")),
-
-
+                                                  context
+                                                      .read<Quotesprovider>()
+                                                      .Savedpref();
+                                                },
+                                                child: Text("Save"),
+                                              ),
                                             ]);
                                           });
                                     },

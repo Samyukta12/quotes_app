@@ -8,20 +8,12 @@ class Save extends StatefulWidget {
 }
 
 class _SaveState extends State<Save> {
-
-
   @override
   Widget build(BuildContext context) {
     return Consumer<Quotesprovider>(builder: (context, c, child) {
       return Scaffold(
         appBar: AppBar(
-          actions: [GestureDetector(
-              onTap: (){
-                context.read<Quotesprovider>().Savedpref();
 
-
-              },
-              child: Icon(Icons.save))],
         ),
         body: Center(
           child: Container(
