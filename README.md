@@ -1,5 +1,5 @@
-# CodSoft_Intern_QuotesApp
-CodSoft Intern
+# QuotesApp
+
 Quotes App with features like displaying inspiring quotes, user can save their favourite quotes and also can share to friends through differnt social media and messages.
 A new Flutter project.
 
